@@ -1,0 +1,310 @@
+BL51 BANKED LINKER/LOCATER V6.22                                                        04/21/2019  11:24:34  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22, INVOKED BY:
+C:\KEIL\C51\BIN\BL51.EXE .\Objects\STARTUP.obj, .\Objects\Ultrasonic_Sensor_8051.obj TO .\Objects\Exp6 PRINT (.\Listings
+>> \Exp6.m51) RAMSIZE (256)
+
+
+MEMORY MODEL: SMALL
+
+
+INPUT MODULES INCLUDED:
+  .\Objects\STARTUP.obj (?C_STARTUP)
+  .\Objects\Ultrasonic_Sensor_8051.obj (ULTRASONIC_SENSOR_8051)
+  C:\KEIL\C51\LIB\C51S.LIB (?C_INIT)
+  C:\KEIL\C51\LIB\C51S.LIB (?C?CLDPTR)
+  C:\KEIL\C51\LIB\C51S.LIB (?C?UIDIV)
+
+
+LINK MAP OF MODULE:  .\Objects\Exp6 (?C_STARTUP)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            DATA    0008H     0004H     UNIT         ?DT?ULTRASONIC_SENSOR_8051
+            DATA    000CH     0003H     UNIT         _DATA_GROUP_
+            IDATA   000FH     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+            CODE    0003H     009EH     UNIT         ?PR?MAIN?ULTRASONIC_SENSOR_8051
+            CODE    00A1H     008CH     UNIT         ?C_C51STARTUP
+            CODE    012DH     006EH     UNIT         ?C?LIB_CODE
+            CODE    019BH     0029H     UNIT         ?PR?_LCD_DATA?ULTRASONIC_SENSOR_8051
+            CODE    01C4H     0028H     UNIT         ?PR?_DELAY?ULTRASONIC_SENSOR_8051
+            CODE    01ECH     0025H     UNIT         ?PR?ULTRASONIC?ULTRASONIC_SENSOR_8051
+            CODE    0211H     0025H     UNIT         ?PR?_MESSAGE?ULTRASONIC_SENSOR_8051
+            CODE    0236H     0023H     UNIT         ?CO?ULTRASONIC_SENSOR_8051
+            CODE    0259H     0022H     UNIT         ?PR?_LCD_CMD?ULTRASONIC_SENSOR_8051
+            CODE    027BH     001EH     UNIT         ?PR?LCDINIT?ULTRASONIC_SENSOR_8051
+            CODE    0299H     000BH     UNIT         ?PR?DELAY10US?ULTRASONIC_SENSOR_8051
+            CODE    02A4H     0005H     UNIT         ?C_INITSEG
+
+
+
+OVERLAY MAP OF MODULE:   .\Objects\Exp6 (?C_STARTUP)
+
+
+SEGMENT                                         DATA_GROUP 
+  +--> CALLED SEGMENT                         START    LENGTH
+-------------------------------------------------------------
+?C_C51STARTUP                                 -----    -----
+  +--> ?PR?MAIN?ULTRASONIC_SENSOR_8051
+  +--> ?C_INITSEG
+
+?PR?MAIN?ULTRASONIC_SENSOR_8051               -----    -----
+  +--> ?PR?LCDINIT?ULTRASONIC_SENSOR_8051
+  +--> ?PR?_LCD_CMD?ULTRASONIC_SENSOR_8051
+BL51 BANKED LINKER/LOCATER V6.22                                                      04/21/2019  11:24:34  PAGE 2
+
+
+  +--> ?CO?ULTRASONIC_SENSOR_8051
+  +--> ?PR?_MESSAGE?ULTRASONIC_SENSOR_8051
+  +--> ?PR?_DELAY?ULTRASONIC_SENSOR_8051
+  +--> ?PR?ULTRASONIC?ULTRASONIC_SENSOR_8051
+  +--> ?PR?_LCD_DATA?ULTRASONIC_SENSOR_8051
+
+?PR?LCDINIT?ULTRASONIC_SENSOR_8051            -----    -----
+  +--> ?PR?_LCD_CMD?ULTRASONIC_SENSOR_8051
+
+?PR?_LCD_CMD?ULTRASONIC_SENSOR_8051           -----    -----
+  +--> ?PR?_DELAY?ULTRASONIC_SENSOR_8051
+
+?PR?_MESSAGE?ULTRASONIC_SENSOR_8051           000CH    0003H
+  +--> ?PR?_LCD_DATA?ULTRASONIC_SENSOR_8051
+
+?PR?_LCD_DATA?ULTRASONIC_SENSOR_8051          -----    -----
+  +--> ?PR?_DELAY?ULTRASONIC_SENSOR_8051
+
+?PR?ULTRASONIC?ULTRASONIC_SENSOR_8051         -----    -----
+  +--> ?PR?DELAY10US?ULTRASONIC_SENSOR_8051
+
+
+
+SYMBOL TABLE OF MODULE:  .\Objects\Exp6 (?C_STARTUP)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        ?C_STARTUP
+  C:00A1H         SEGMENT       ?C_C51STARTUP
+  I:000FH         SEGMENT       ?STACK
+  C:0000H         PUBLIC        ?C_STARTUP
+  D:00E0H         SYMBOL        ACC
+  D:00F0H         SYMBOL        B
+  D:0083H         SYMBOL        DPH
+  D:0082H         SYMBOL        DPL
+  N:0000H         SYMBOL        IBPSTACK
+  N:0100H         SYMBOL        IBPSTACKTOP
+  N:0080H         SYMBOL        IDATALEN
+  C:00A4H         SYMBOL        IDATALOOP
+  N:0000H         SYMBOL        PBPSTACK
+  N:0100H         SYMBOL        PBPSTACKTOP
+  N:0000H         SYMBOL        PDATALEN
+  N:0000H         SYMBOL        PDATASTART
+  N:0000H         SYMBOL        PPAGE
+  N:0000H         SYMBOL        PPAGEENABLE
+  D:00A0H         SYMBOL        PPAGE_SFR
+  D:0081H         SYMBOL        SP
+  C:00A1H         SYMBOL        STARTUP1
+  N:0000H         SYMBOL        XBPSTACK
+  N:0000H         SYMBOL        XBPSTACKTOP
+  N:0000H         SYMBOL        XDATALEN
+  N:0000H         SYMBOL        XDATASTART
+  C:0000H         LINE#         126
+  C:00A1H         LINE#         133
+  C:00A3H         LINE#         134
+  C:00A4H         LINE#         135
+BL51 BANKED LINKER/LOCATER V6.22                                                      04/21/2019  11:24:34  PAGE 3
+
+
+  C:00A5H         LINE#         136
+  C:00A7H         LINE#         185
+  C:00AAH         LINE#         196
+  -------         ENDMOD        ?C_STARTUP
+
+  -------         MODULE        ULTRASONIC_SENSOR_8051
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:00A0H         PUBLIC        P2
+  D:00B0H         PUBLIC        P3
+  D:0008H         PUBLIC        range
+  C:01CCH         PUBLIC        _delay
+  B:00B0H.2       PUBLIC        INT0
+  B:00B0H.2       PUBLIC        echo
+  C:0003H         PUBLIC        main
+  C:01A2H         PUBLIC        _lcd_data
+  D:0089H         PUBLIC        TMOD
+  B:00B0H.3       PUBLIC        trig
+  D:0082H         PUBLIC        DPTR
+  C:0259H         PUBLIC        _lcd_cmd
+  C:01ECH         PUBLIC        ultrasonic
+  D:008CH         PUBLIC        TH0
+  D:008AH         PUBLIC        TL0
+  B:0088H.4       PUBLIC        TR0
+  D:0083H         PUBLIC        DPH
+  C:0299H         PUBLIC        delay10us
+  D:0082H         PUBLIC        DPL
+  B:00A0H.2       PUBLIC        e
+  B:00A0H.0       PUBLIC        rs
+  C:0211H         PUBLIC        _message
+  B:00A0H.1       PUBLIC        rw
+  C:027BH         PUBLIC        lcdinit
+  D:000AH         PUBLIC        x
+  -------         PROC          L?0027
+  -------         ENDPROC       L?0027
+  -------         PROC          _DELAY
+  D:0006H         SYMBOL        msec
+  -------         DO            
+  D:0004H         SYMBOL        i
+  D:0002H         SYMBOL        j
+  -------         ENDDO         
+  C:01CCH         LINE#         19
+  C:01CCH         LINE#         20
+  C:01CCH         LINE#         22
+  C:01D6H         LINE#         23
+  C:01D6H         LINE#         24
+  C:01E4H         LINE#         25
+  C:01EBH         LINE#         26
+  -------         ENDPROC       _DELAY
+  -------         PROC          DELAY10US
+  C:0299H         LINE#         28
+  C:0299H         LINE#         29
+  C:0299H         LINE#         30
+  C:029EH         LINE#         31
+  C:02A3H         LINE#         32
+  -------         ENDPROC       DELAY10US
+  -------         PROC          ULTRASONIC
+  -------         DO            
+BL51 BANKED LINKER/LOCATER V6.22                                                      04/21/2019  11:24:34  PAGE 4
+
+
+  D:0007H         SYMBOL        dataD
+  -------         ENDDO         
+  C:01ECH         LINE#         35
+  C:01ECH         LINE#         36
+  C:01ECH         LINE#         38
+  C:01EEH         LINE#         39
+  C:01F1H         LINE#         40
+  C:01F3H         LINE#         42
+  C:01F6H         LINE#         43
+  C:01F9H         LINE#         44
+  C:01FCH         LINE#         45
+  C:01FFH         LINE#         46
+  C:0205H         LINE#         48
+  C:0210H         LINE#         49
+  C:0210H         LINE#         50
+  -------         ENDPROC       ULTRASONIC
+  -------         PROC          _LCD_CMD
+  D:0001H         SYMBOL        item
+  -------         DO            
+  D:0007H         SYMBOL        a
+  -------         ENDDO         
+  C:0259H         LINE#         53
+  C:025BH         LINE#         54
+  C:025BH         LINE#         57
+  C:025EH         LINE#         58
+  C:0260H         LINE#         59
+  C:0262H         LINE#         60
+  C:0262H         LINE#         61
+  C:0262H         LINE#         62
+  C:0265H         LINE#         63
+  C:0267H         LINE#         65
+  C:026BH         LINE#         66
+  C:026DH         LINE#         67
+  C:026FH         LINE#         68
+  C:0271H         LINE#         69
+  C:0273H         LINE#         70
+  C:0278H         LINE#         71
+  C:027AH         LINE#         72
+  -------         ENDPROC       _LCD_CMD
+  -------         PROC          L?0026
+  -------         ENDPROC       L?0026
+  -------         PROC          _LCD_DATA
+  D:0001H         SYMBOL        item
+  -------         DO            
+  D:0007H         SYMBOL        a
+  -------         ENDDO         
+  C:01A2H         LINE#         75
+  C:01A4H         LINE#         76
+  C:01A4H         LINE#         79
+  C:01A7H         LINE#         80
+  C:01A9H         LINE#         81
+  C:01ABH         LINE#         82
+  C:01ABH         LINE#         83
+  C:01ABH         LINE#         84
+  C:01AEH         LINE#         85
+  C:01B0H         LINE#         87
+  C:01B4H         LINE#         88
+BL51 BANKED LINKER/LOCATER V6.22                                                      04/21/2019  11:24:34  PAGE 5
+
+
+  C:01B6H         LINE#         89
+  C:01B8H         LINE#         90
+  C:01BAH         LINE#         91
+  C:01BCH         LINE#         92
+  C:01C1H         LINE#         93
+  C:01C3H         LINE#         94
+  -------         ENDPROC       _LCD_DATA
+  -------         PROC          _MESSAGE
+  D:000CH         SYMBOL        s
+  C:0211H         LINE#         96
+  C:0217H         LINE#         97
+  C:0217H         LINE#         98
+  C:0222H         LINE#         99
+  C:0235H         LINE#         100
+  -------         ENDPROC       _MESSAGE
+  -------         PROC          LCDINIT
+  C:027BH         LINE#         103
+  C:027BH         LINE#         104
+  C:027BH         LINE#         105
+  C:0280H         LINE#         106
+  C:0285H         LINE#         107
+  C:028AH         LINE#         108
+  C:028FH         LINE#         109
+  C:0294H         LINE#         110
+  -------         ENDPROC       LCDINIT
+  -------         PROC          MAIN
+  C:0003H         LINE#         114
+  C:0003H         LINE#         115
+  C:0003H         LINE#         116
+  C:0006H         LINE#         117
+  C:000BH         LINE#         118
+  C:0014H         LINE#         119
+  C:001BH         LINE#         121
+  C:001DH         LINE#         122
+  C:0020H         LINE#         123
+  C:0025H         LINE#         124
+  C:0027H         LINE#         125
+  C:0029H         LINE#         126
+  C:0029H         LINE#         127
+  C:0029H         LINE#         128
+  C:002CH         LINE#         129
+  C:0031H         LINE#         130
+  C:003AH         LINE#         131
+  C:0042H         LINE#         132
+  C:0047H         LINE#         133
+  C:0052H         LINE#         134
+  C:006AH         LINE#         135
+  C:0089H         LINE#         136
+  C:008EH         LINE#         137
+  C:009EH         LINE#         138
+  -------         ENDPROC       MAIN
+  -------         ENDMOD        ULTRASONIC_SENSOR_8051
+
+  -------         MODULE        ?C?CLDPTR
+  C:012DH         PUBLIC        ?C?CLDPTR
+  -------         ENDMOD        ?C?CLDPTR
+
+BL51 BANKED LINKER/LOCATER V6.22                                                      04/21/2019  11:24:34  PAGE 6
+
+
+  -------         MODULE        ?C?UIDIV
+  C:0146H         PUBLIC        ?C?UIDIV
+  -------         ENDMOD        ?C?UIDIV
+
+Program Size: data=16.0 xdata=0 code=681
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

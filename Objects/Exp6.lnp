@@ -1,0 +1,4 @@
+".\Objects\STARTUP.obj",
+".\Objects\Ultrasonic_Sensor_8051.obj" 
+TO ".\Objects\Exp6" 
+PRINT(".\Listings\Exp6.m51") RAMSIZE(256) 

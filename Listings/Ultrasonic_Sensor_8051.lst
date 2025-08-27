@@ -1,0 +1,167 @@
+C51 COMPILER V9.56.0.0   ULTRASONIC_SENSOR_8051                                            04/21/2019 11:24:34 PAGE 1   
+
+
+C51 COMPILER V9.56.0.0, COMPILATION OF MODULE ULTRASONIC_SENSOR_8051
+OBJECT MODULE PLACED IN .\Objects\Ultrasonic_Sensor_8051.obj
+COMPILER INVOKED BY: C:\KEIL\C51\BIN\C51.EXE Ultrasonic_Sensor_8051.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(
+                    -.\Listings\Ultrasonic_Sensor_8051.lst) TABS(2) OBJECT(.\Objects\Ultrasonic_Sensor_8051.obj)
+
+line level    source
+
+   1          #include <reg51.h>
+   2          #include <intrins.h> 
+   3          #define dataport P2
+   4          
+   5          sfr16 DPTR=0x82;
+   6          
+   7          sbit rs=P2^0;
+   8          sbit rw=P2^1;
+   9          sbit e=P2^2;
+  10          
+  11          sbit trig=P3^3;
+  12          sbit echo=P3^2;
+  13          
+  14          unsigned int range=0;
+  15          
+  16          int x;
+  17          
+  18          //////////////////////////////////Delay program
+  19          void delay(unsigned int msec)
+  20          {
+  21   1        int i,j;
+  22   1        for(i=0;i<msec;i++)
+  23   1        {
+  24   2        for(j=0;j<1275;j++);
+  25   2        }
+  26   1      }
+  27          /////////////////////////////////// Function for creating delay of 10 Microseconds
+  28          void delay10us()    
+  29          {
+  30   1      _nop_(); _nop_(); _nop_(); _nop_(); _nop_();
+  31   1      _nop_(); _nop_(); _nop_(); _nop_(); _nop_();
+  32   1      }
+  33          
+  34          ////////////////////////////////////Function to interface ultrasonic Sensor
+  35          unsigned char ultrasonic()         
+  36          {
+  37   1        unsigned char dataD;
+  38   1        trig=1;       //These three line is to generate ultrasonic sound of 40 Khz
+  39   1        delay10us();
+  40   1        trig=0;
+  41   1        
+  42   1        while(INT0==0);   //////// Wait untill INT0 pin (echo pin) high
+  43   1        while(INT0==1);   //////// Wait untill INT0 pin (echo pin) low
+  44   1        DPH=TH0;          /////////Store TH0 value to DPH
+  45   1        DPL=TL0;          /////////Store TL0 value to DPL
+  46   1        TH0=TL0=0xff;     
+  47   1        
+  48   1        dataD=DPTR/59;      ////////// 59 from calculation
+  49   1        return dataD;
+  50   1      }
+  51          
+  52          ////////////////////////////// Function to send command to LCD
+  53          void lcd_cmd(unsigned char item) 
+  54          { 
+C51 COMPILER V9.56.0.0   ULTRASONIC_SENSOR_8051                                            04/21/2019 11:24:34 PAGE 2   
+
+  55   1        ////////////////////////////Sending upper nibble of command
+  56   1        unsigned char a;
+  57   1        a=item&0xf0;
+  58   1        dataport=a;
+  59   1        rs=0;
+  60   1        rw=0;
+  61   1        e=1;
+  62   1        delay(1);
+  63   1        e=0;
+  64   1        ////////////////////////////Sending lower nibble of command
+  65   1        a=(item<<4)&0xf0;
+  66   1        dataport=a;
+  67   1        rs=0;
+  68   1        rw=0;
+  69   1        e=1;
+  70   1        delay(1);
+  71   1        e=0;
+  72   1      }
+  73          //////////////////////////////// Function to send data to LCD
+  74          
+  75          void lcd_data(unsigned char item) 
+  76          { 
+  77   1        ////////////////////////////Sending upper nibble of data_
+  78   1        unsigned char a;
+  79   1        a=item&0xf0;
+  80   1        dataport=a;
+  81   1        rs=1;
+  82   1        rw=0;
+  83   1        e=1;
+  84   1        delay(1);
+  85   1        e=0;
+  86   1        ////////////////////////////Sending lower nibble of data_
+  87   1        a=(item<<4)& 0xf0;
+  88   1        dataport=a;
+  89   1        rs=1;
+  90   1        rw=0;
+  91   1        e=1;
+  92   1        delay(1);
+  93   1        e=0;  
+  94   1      }
+  95          //////////////////////////////// Function to send more than one character/data
+  96          void message(unsigned char *s)
+  97          {
+  98   1        while(*s)
+  99   1          lcd_data(*s++);
+ 100   1      }
+ 101          ////////////////////////////////Function to ininitialize LCD
+ 102          
+ 103          void lcdinit()
+ 104          {
+ 105   1        lcd_cmd(0x33); // These two commands (0x33 and ox32) are used in 4 bit mode of LCD 
+ 106   1        lcd_cmd(0x32);
+ 107   1        lcd_cmd(0x28); //4 bit mode of LCD
+ 108   1        lcd_cmd(0x06); //display from left to right
+ 109   1        lcd_cmd(0x0C); //display ON, cursor hide
+ 110   1        lcd_cmd(0x01); //clear LCD
+ 111   1      }
+ 112          
+ 113          ///////////////////////////////////////Main program
+ 114          void main()
+ 115          {
+ 116   1        lcdinit();
+C51 COMPILER V9.56.0.0   ULTRASONIC_SENSOR_8051                                            04/21/2019 11:24:34 PAGE 3   
+
+ 117   1        lcd_cmd(0x80);
+ 118   1        message("Initialising....");
+ 119   1        delay(100); 
+ 120   1      //////////////////////////////////////Code for ultrasonic sensor
+ 121   1        trig=0;
+ 122   1        TMOD=0x09;    //Timer 0 ; Mode 1 i.e 16 bit Timer
+ 123   1        TH0=TL0=0;    //Load the TH0 and TL0 with 0
+ 124   1        TR0=1;        // Start the Timer 0
+ 125   1        echo=1;
+ 126   1        while(1)
+ 127   1        {
+ 128   2        lcdinit();
+ 129   2        lcd_cmd(0x80);
+ 130   2        message(" Distance is= ");
+ 131   2        range=ultrasonic();
+ 132   2        lcd_cmd(0xc4);
+ 133   2        lcd_data((range/100)+48);
+ 134   2        lcd_data(((range%100)/10)+48);
+ 135   2        lcd_data(((range%100)%10)+48);
+ 136   2        lcd_cmd(0xc7);
+ 137   2        message("cm");delay(100);
+ 138   2        }
+ 139   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    388    ----
+   CONSTANT SIZE    =     35    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      4       3
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
